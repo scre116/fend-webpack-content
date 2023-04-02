@@ -1,4 +1,6 @@
-export function handleSubmit(event) {
+import {checkForName} from "./nameChecker";
+
+function handleSubmit(event) {
     event.preventDefault()
 
     // check what text was put into the form field
@@ -9,6 +11,8 @@ export function handleSubmit(event) {
     fetch('http://localhost:8080/test')
         .then(res => res.json())
         .then(function (res) {
-        document.getElementById('results').innerHTML = res.message
-    })
+            document.getElementById('results').innerHTML = res.message
+        })
 }
+
+export {handleSubmit}
