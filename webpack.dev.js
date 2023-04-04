@@ -6,6 +6,13 @@ module.exports = {
     mode: 'development',
     devtool: 'source-map',
     entry: './src/client/index.js',
+    output: {
+        filename: 'main.js',
+        library: {
+            name: 'ClientLib',
+            type: 'var'
+        }
+    },
     module: {
         rules: [
             {
