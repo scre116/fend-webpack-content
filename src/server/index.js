@@ -30,7 +30,9 @@ app.get('/weather', function (req, response) {
     if (openWeatherMapKey === '') {
         console.log('OpenWeatherMap key is missing');
         response.send({weather: [{description: 'OpenWeatherMap key is missing'}]});
+        return;
     }
+    
     const openWeatherMapUrl = `https://api.openweathermap.org/data/2.5/weather?zip=20001&appid=${openWeatherMapKey}&units=metric`;
     fetch(openWeatherMapUrl)
         .then(weatherResponse => weatherResponse.json())

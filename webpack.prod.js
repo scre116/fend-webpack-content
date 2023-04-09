@@ -1,10 +1,17 @@
 const path = require('path')
 const webpack = require('webpack')
 const HtmlWebpackPlugin = require('html-webpack-plugin')
+const MiniCssExtractPlugin = require('mini-css-extract-plugin');
+const CssMinimizerPlugin = require('css-minimizer-webpack-plugin');
+const TerserPlugin = require('terser-webpack-plugin');
 
 module.exports = {
     mode: 'production',
+    devtool: 'source-map',
     entry: './src/client/index.js',
+    optimization: {
+        minimizer: [new TerserPlugin({}), new CssMinimizerPlugin({})],
+    },
     output: {
         filename: 'main.js',
         library: {
@@ -21,7 +28,7 @@ module.exports = {
             },
             {
                 test: /\.scss$/,
-                use: [ 'style-loader', 'css-loader', 'sass-loader' ]
+                use: [ MiniCssExtractPlugin.loader, 'css-loader', 'sass-loader' ]
             },
             {
                 test: /\.(png|jp(e*)g|svg)$/,
@@ -39,7 +46,11 @@ module.exports = {
         new HtmlWebpackPlugin({
             template: './src/client/views/index.html',
             filename: './index.html',
-        })
+        }),
+        new MiniCssExtractPlugin({ 
+            filename: "[name].css" 
+            
+        }),
     ]
 
 }
